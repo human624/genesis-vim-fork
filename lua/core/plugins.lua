@@ -63,6 +63,25 @@ require("lazy").setup({
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
 	{
+	  "max397574/better-escape.nvim",
+	  event = "InsertEnter", -- load only when entering Insert mode
+	  config = function()
+	    require("better_escape").setup {
+	      timeout = 200,            -- time in ms to wait before considering the sequence invalid
+	      default_mappings = false, -- disable all default mappings
+	      mappings = {
+	        i = { -- insert mode
+	          j = {
+	            k = "<Esc>", -- jk → Esc
+	            j = "<Esc>", -- jj → Esc
+	          },
+	        },
+	      },
+	    }
+	  end,
+	},
+
+	{
 	    'numToStr/Comment.nvim',
 	    opts = {
 	        -- add any options here

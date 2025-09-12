@@ -11,6 +11,7 @@
 
 <p align="center">
 A minimalistic nvim config aimed at Python developers. It is a lightweight replacement for PyCharm and VsCode, eliminating all unnecessary featuresd to be easily portable for running on servers and for deployment on Linux systems.
+I created this fork to remove these errors https://github.com/Zproger/GenesisNvim/pull/19 and make it convenient for me. And thanks to Zproger for the great work
 </p>
 
 ## 🌟 Preview
@@ -56,8 +57,9 @@ brew install git npm  # MacOS
 
 ```sh
 mkdir -p ~/.config/nvim
-git clone https://github.com/Zproger/GenesisNvim.git ~/.config/nvim
-nvim -c "MasonInstall pyright ruff-lsp mypy debugpy rust-analyzer"
+git clone https://github.com/human624/genesis-vim-fork ~/.config/nvim
+rm -rf ~/.config/nvim/.git # Remove the .git folder, so you can add it to your own repo later
+nvim -c "MasonInstall pyright ruff mypy debugpy rust-analyzer"
 ```
 
 ## 🌟 Other

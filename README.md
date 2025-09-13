@@ -58,7 +58,6 @@ brew install git npm  # MacOS
 ```sh
 mkdir -p ~/.config/nvim
 git clone https://github.com/human624/genesis-vim-fork ~/.config/nvim
-rm -rf ~/.config/nvim/.git # Remove the .git folder, so you can add it to your own repo later
 nvim -c "MasonInstall pyright ruff mypy debugpy rust-analyzer"
 ```
 

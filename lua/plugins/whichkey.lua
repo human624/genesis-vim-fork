@@ -35,5 +35,5 @@ wk.add({
   { "<leader>r", desc = "Ruff" },
 
   -- Color Schees
-  { "<leader>cs", "<cmd>colorscheme<cr>", desc = "Open Color Schemes" }
+  { "<leader>cs", function() require("telescope.builtin").colorscheme() end, desc = "Change Colorscheme" } 
 })

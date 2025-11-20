@@ -5,12 +5,11 @@ vim.g.did_load_filetypes = 1
 vim.g.formatoptions = "qrn1"
 vim.opt.showmode = false
 vim.opt.updatetime = 100
-vim.wo.signcolumn = "yes"
 vim.opt.wrap = false
 vim.wo.linebreak = true
 vim.opt.virtualedit = "block"
 vim.opt.undofile = true
-vim.opt.shell = "/bin/fish"            -- Shell по умолчанию
+vim.opt.shell = "/bin/zsh"            -- Shell по умолчанию
 vim.opt.swapfile = false               -- Отключить swap файлы nvim
 vim.opt.encoding = "utf-8"             -- Кодировка utf-8
 vim.opt.cursorline = true              -- Выделять активную строку где находится курсор
@@ -71,5 +70,5 @@ vim.opt.fillchars = {
     foldclose = "▸"
 }
 
-vim.cmd([[highlight clear LineNr]])
+-- Highlight
 vim.cmd([[highlight clear SignColumn]])

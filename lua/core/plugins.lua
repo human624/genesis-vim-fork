@@ -1,4 +1,3 @@
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -6,156 +5,152 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	
-	{ 'nvim-treesitter/nvim-treesitter' },
-	{ 'neovim/nvim-lspconfig' },
 
-	-- Autocomplete support
-	{ 'hrsh7th/cmp-nvim-lsp' },
-	{ 'hrsh7th/cmp-buffer' },
-	{ 'hrsh7th/cmp-path' },
-	{ 'hrsh7th/cmp-cmdline' },
-	{ 'hrsh7th/nvim-cmp' },
-	{ 'williamboman/mason.nvim' },
+  -- Treesitter
+  { 'nvim-treesitter/nvim-treesitter' },
 
-    {
-		'nvim-telescope/telescope.nvim', tag = '0.1.6',
-		dependencies = { 'nvim-lua/plenary.nvim' }
-	},
+  -- LSP
+  { 'neovim/nvim-lspconfig' },
 
-	{
-	  'nvimdev/dashboard-nvim',
-	  event = 'VimEnter',
-	  config = function()
-	    require('dashboard').setup {
-	      -- config
-	    }
-	  end,
-	  dependencies = { {'nvim-tree/nvim-web-devicons'}}
-	},
+  -- Autocomplete
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-cmdline' },
+  { 'hrsh7th/nvim-cmp' },
+  { 'williamboman/mason.nvim' },
 
-	{ 'Eandrju/cellular-automaton.nvim' },
-	{ 'norcalli/nvim-colorizer.lua' },
+  -- Telescope
+  {
+    'nvim-telescope/telescope.nvim', tag = '0.1.6',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 
-	{
-	    'nvim-lualine/lualine.nvim',
-	    dependencies = { 'nvim-tree/nvim-web-devicons' }
-	},
+  -- Dashboard
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {}
+    end,
+    dependencies = { {'nvim-tree/nvim-web-devicons'} }
+  },
 
-	{
-	  "folke/todo-comments.nvim",
-	  dependencies = { "nvim-lua/plenary.nvim" },
-	  opts = {
-	    -- your configuration comes here
-	    -- or leave it empty to use the default settings
-	    -- refer to the configuration section below
-	  }
-	},
+  -- Utilities
+  { 'Eandrju/cellular-automaton.nvim' },
+  { 'norcalli/nvim-colorizer.lua' },
 
-	{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  -- Status line
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
 
-	{
-	  "max397574/better-escape.nvim",
-	  event = "InsertEnter", -- load only when entering Insert mode
-	  config = function()
-	    require("better_escape").setup {
-	      timeout = 200,            -- time in ms to wait before considering the sequence invalid
-	      default_mappings = false, -- disable all default mappings
-	      mappings = {
-	        i = { -- insert mode
-	          j = {
-	            k = "<Esc>", -- jk → Esc
-	            j = "<Esc>", -- jj → Esc
-	          },
-	        },
-	      },
-	    }
-	  end,
-	},
+  -- Todo comments
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {}
+  },
 
-	{
-	    'numToStr/Comment.nvim',
-	    opts = {
-	        -- add any options here
-	    },
-	    lazy = false,
-	},
+  -- Colorschemes
+  {'ellisonleao/gruvbox.nvim', priority = 1000 , config = true, opts = ...},
+  {'catppuccin/nvim', name = "catppuccin", priority = 1000 },
 
-	{'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  -- Escape jk/jj mapping
+  {
+    "max397574/better-escape.nvim",
+    event = "InsertEnter",
+    config = function()
+      require("better_escape").setup {
+        timeout = 200,
+        default_mappings = false,
+        mappings = {
+          i = {
+            j = {
+              k = "<Esc>",
+              j = "<Esc>",
+            },
+          },
+        },
+      }
+    end,
+  },
 
-	{
-	  "nvim-tree/nvim-tree.lua",
-	  version = "*",
-	  lazy = false,
-	  dependencies = {
-	    "nvim-tree/nvim-web-devicons",
-	  },
-	  config = function()
-	    require("nvim-tree").setup {}
-	  end,
-	},
+  -- Comment
+  {
+    'numToStr/Comment.nvim',
+    opts = {},
+    lazy = false,
+  },
 
-	{
-	    'dense-analysis/ale',
-	    config = function()
-	        -- Configuration goes here.
-	        local g = vim.g
-	
-	        g.ale_linters = {
-	        	python = {'mypy'},
-	            lua = {'lua_language_server'}
-	        }
-	    end
-	},
+  -- Bufferline
+  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
 
-	{ 'RRethy/vim-illuminate' },
+  -- File tree
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("nvim-tree").setup {}
+    end,
+  },
 
-	{
-	    "vhyrro/luarocks.nvim",
-	    priority = 1001, -- this plugin needs to run before anything else
-	    opts = {
-	        rocks = { "magick" },
-	    },
-	},
+  -- ALE
+  {
+    'dense-analysis/ale',
+    config = function()
+      local g = vim.g
+      g.ale_linters = {
+        python = {'mypy'},
+        lua = {'lua_language_server'}
+      }
+    end
+  },
 
-	{
-	 "folke/trouble.nvim",
-	 dependencies = { "nvim-tree/nvim-web-devicons" },
-	 opts = {
-	  -- your configuration comes here
-	  -- or leave it empty to use the default settings
-	  -- refer to the configuration section below
-	 },
-	},
+  -- Illuminate
+  { 'RRethy/vim-illuminate' },
 
-	{'akinsho/toggleterm.nvim', version = "*", config = true},
+  -- Luarocks
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1001,
+    opts = { rocks = { "magick" } },
+  },
 
-	{
-	  "folke/which-key.nvim",
-	  event = "VeryLazy",
-	  init = function()
-	    vim.o.timeout = true
-	    vim.o.timeoutlen = 300
-	  end,
-	  opts = {
-	    -- your configuration comes here
-	    -- or leave it empty to use the default settings
-	    -- refer to the configuration section below
-	  }
-	},
+  -- Trouble
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {}
+  },
 
-	-- Выравнивание и перемещение текста
-	-- Автоматическое открытие фигурных скобок, кавычек и т.д
-	{ 'echasnovski/mini.nvim', version = false },
-	{ 'echasnovski/mini.move', version = false },
-	{ 'echasnovski/mini.pairs', version = false },
+  -- ToggleTerm
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
+
+  -- WhichKey
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {}
+  },
+
+  -- Mini plugins
+  { 'echasnovski/mini.nvim', version = false },
+  { 'echasnovski/mini.move', version = false },
+  { 'echasnovski/mini.pairs', version = false },
 
 })

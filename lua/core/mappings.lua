@@ -3,12 +3,12 @@ vim.g.mapleader = " "
 -- Quit
 vim.keymap.set('n', '<C-q>', '<cmd>:q<CR>')
 
--- Copy all text
-vim.keymap.set('n', '<C-a>', '<cmd>%y+<CR>')
-
--- Saving a file via Ctrl+S
+-- Save
 vim.keymap.set('i', '<C-s>', '<cmd>:w<CR>')
 vim.keymap.set('n', '<C-s>', '<cmd>:w<CR>')
+
+-- Copy all text
+vim.keymap.set('n', '<C-a>', '<cmd>%y+<CR>')
 
 -- NvimTree
 vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>')
@@ -24,3 +24,4 @@ vim.keymap.set('n', '<leader>nl', ':TodoTelescope<CR>')
 
 -- ToggleTerm
 vim.keymap.set('n', '<leader>s', ':ToggleTerm direction=float<CR>')
+

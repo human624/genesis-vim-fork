@@ -25,3 +25,13 @@ vim.keymap.set('n', '<leader>nl', ':TodoTelescope<CR>')
 -- ToggleTerm
 vim.keymap.set('n', '<leader>s', ':ToggleTerm direction=float<CR>')
 
+-- Нормальный режим (Normal Mode Overrides)
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap('n', 'd', '"_d', opts)        
+vim.api.nvim_set_keymap('n', 'dw', '"_dw', opts)      
+vim.api.nvim_set_keymap('n', 'db', '"_db', opts)      
+vim.api.nvim_set_keymap('n', 'dd', '"_dd', opts)      
+
+-- Визуальный режим (Visual Mode Overrides)
+vim.api.nvim_set_keymap('v', 'd', '"_d', opts)        
+vim.api.nvim_set_keymap('v', 'x', '"_x', opts)  

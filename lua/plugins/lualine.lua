@@ -74,7 +74,7 @@ local right = {
   { 'fileformat', fmt = string.upper, icons_enabled = false, color = { fg = colors.green, bg = colors.thm, gui = 'bold' } },
   { 'branch', icon = '', color = { fg = colors.visual, bg = colors.thm, gui = 'bold' } },
   { 'diff',
-    symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
+    symbols = { added = ' ', modified = ' ', removed = ' ' },
     diff_color = {
       added = { fg = colors.green, bg = colors.thm },
       modified = { fg = colors.command, bg = colors.thm },

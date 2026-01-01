@@ -6,6 +6,7 @@ require('core.plugins')
 require('core.mappings')
 require('core.colors')
 require('core.configs')
+require('core.cursor')
 
 -- Editor Functionality
 require('plugins.nvim-tree')

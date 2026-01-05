@@ -30,6 +30,14 @@ cmp.setup({
         }),
     },
 
+    formatting = {
+        fields = { "abbr", "kind", "menu" },
+        format = function(entry, vim_item)
+            vim_item.abbr = vim_item.abbr .. " "  -- добавляем пробел справа у текста
+            return vim_item
+        end,
+    }, 
+        
     -- Key mappings
     mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),

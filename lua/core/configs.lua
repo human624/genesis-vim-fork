@@ -14,6 +14,7 @@ vim.opt.swapfile = false               -- Отключить swap файлы nvi
 vim.opt.encoding = "utf-8"             -- Кодировка utf-8
 vim.opt.cursorline = true              -- Выделять активную строку где находится курсор
 vim.opt.fileformat = "unix"
+vim.o.confirm = true
 
 -- Nvim-Tree
 vim.g.loaded_netrw = 1

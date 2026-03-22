@@ -38,6 +38,61 @@ I created this fork to remove these errors https://github.com/Zproger/GenesisNvi
 - Support for diagnostics and LSP by default
 - Built-in floating terminal that can be opened separately
 - Quick search via Telescope
+  
+<details>
+<summary><b>⌨️ HotKeys</b></summary>
+
+### 1. General & Editor / Общие
+| Shortcut | Action (EN) | Действие (RU) |
+| :--- | :--- | :--- |
+| **Ctrl + s** | Save current file | Сохранить текущий файл |
+| **Ctrl + q** | Quit Neovim | Выйти из Neovim |
+| **Ctrl + a** | Copy all to clipboard | Копировать всё в буфер |
+| **j + k** / **j + j** | Exit Insert mode | Выход из режима вставки |
+| **d** / **dw** / **dd** | Delete (no copy) | Удаление без копирования |
+| **x** | Delete char (no copy) | Удаление символа без копирования |
+
+### 2. Navigation & UI / Навигация
+| Shortcut | Action (EN) | Действие (RU) |
+| :--- | :--- | :--- |
+| **Space + t** | Toggle File Tree | Открыть/Закрыть дерево файлов |
+| **Space + t + f** | Focus on File Tree | Сфокусироваться на дереве |
+| **Tab** | Next buffer | Следующая вкладка |
+| **Shift + Tab** | Previous buffer | Предыдущая вкладка |
+| **Ctrl + l** | Close other buffers | Закрыть остальные вкладки |
+
+### 3. Search & Git / Поиск и Git
+| Shortcut | Action (EN) | Действие (RU) |
+| :--- | :--- | :--- |
+| **Space + f + f** | Find files | Поиск файлов по названию |
+| **Space + f + t** | Find text (Grep) | Поиск текста в файлах |
+| **Space + f + b** | List buffers | Список открытых вкладок |
+| **Space + c + s** | Change colorscheme | Смена цветовой схемы |
+| **Space + g + b** | Git branches | Список веток Git |
+| **Space + g + s** | Git status | Статус Git |
+| **Space + n + l** | TODO/FIXME list | Список заметок TODO |
+
+### 4. LSP & Diagnostics / Разработка
+| Shortcut | Action (EN) | Действие (RU) |
+| :--- | :--- | :--- |
+| **g + d** | Go to Definition | Перейти к определению |
+| **g + r** | List references | Найти все ссылки |
+| **K** | Hover documentation | Документация под курсором |
+| **Ctrl + k** | Signature help | Помощь по сигнатуре функции |
+| **Space + r** | Code actions (Ruff) | Быстрые действия (Ruff) |
+| **Space + f** | Format file | Форматирование кода |
+| **Space + e** | Diagnostic float | Ошибка в плавающем окне |
+| **[ + d** / **] + d** | Prev/Next diagnostic | К пред./след. ошибке |
+
+### 5. Terminal & Utils / Терминал и утилиты
+| Shortcut | Action (EN) | Действие (RU) |
+| :--- | :--- | :--- |
+| **Space + s** | Toggle terminal | Открыть терминал |
+| **g + c + c** | Toggle line comment | Закомментировать строку |
+| **g + c** | Toggle block comment | Закомментировать блок |
+| **Escape** / **j + k** | Exit terminal mode | Выйти из режима терминала |
+
+</details>
 
 ## 🌟 Installation
 - If you already have neovim, make backups of your configuration.

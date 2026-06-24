@@ -1,4 +1,4 @@
--- cursor.lua: запоминаем позицию курсора при открытии файла
+-- cursor.lua: remember the cursor position when opening a file
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",
   callback = function()

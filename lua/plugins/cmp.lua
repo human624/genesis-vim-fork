@@ -1,31 +1,25 @@
 local cmp = require 'cmp'
 
--- Получаем цвета из темы Catppuccin Mocha
+-- Get colors from Catppuccin Mocha
 local catppuccin = require('catppuccin.palettes').get_palette("mocha")
-
--- Используем цвет для рамки из Catppuccin Mocha
-local border_color = catppuccin.blue -- или catppuccin.lavender если хочешь другой оттенок
+local border_color = catppuccin.blue
 
 -- Snippet configuration
 cmp.setup({
     snippet = {
         expand = function(args)
-            -- Вставка сниппетов (разкомментируй нужный движок)
-            -- vim.fn["vsnip#anonymous"](args.body)
-            -- require('luasnip').lsp_expand(args.body)
-            -- require('snippy').expand_snippet(args.body)
-            -- vim.fn["UltiSnips#Anon"](args.body)
+            vim.fn["vsnip#anonymous"](args.body)
         end
     },
 
     -- Window appearance with border
     window = {
         completion = cmp.config.window.bordered({
-            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },  -- Рамка для completion
+            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
             winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
         }),
         documentation = cmp.config.window.bordered({
-            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },  -- Рамка для documentation
+            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
             winhighlight = "Normal:CmpPmenu,FloatBorder:CmpDocBorder,CursorLine:PmenuSel,Search:None",
         }),
     },
@@ -33,7 +27,7 @@ cmp.setup({
     formatting = {
         fields = { "abbr", "kind", "menu" },
         format = function(entry, vim_item)
-            vim_item.abbr = vim_item.abbr .. " "  -- добавляем пробел справа у текста
+            vim_item.abbr = vim_item.abbr .. " "
             return vim_item
         end,
     }, 
@@ -64,30 +58,28 @@ cmp.setup({
     -- Completion sources
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'vsnip' } -- Для vsnip пользователей
+        { name = 'vsnip' }
     }, {
         { name = 'buffer' },
         { name = 'nvim_lsp_signature_help' }
     })
 })
 
--- Filetype specific configuration
+-- Filetype specific configuration for git
 cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
-        { name = 'cmp_git' } -- Только для gitcommit
+        { name = 'cmp_git' }
     }, {
         { name = 'buffer' }
     })
 })
 
 -- Cmdline configuration
--- Для поиска через / и ?
 cmp.setup.cmdline({'/', '?'}, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {{ name = 'buffer' }}
 })
 
--- Для команд через :
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
@@ -97,10 +89,6 @@ cmp.setup.cmdline(':', {
     })
 })
 
--- LSP capabilities setup
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require('lspconfig')['ts_ls'].setup { capabilities = capabilities }
-
--- Highlight for border colors using Catppuccin Mocha color
+-- Set border highlight
 vim.cmd('highlight CmpBorder guifg=' .. border_color)
 vim.cmd('highlight CmpDocBorder guifg=' .. border_color)

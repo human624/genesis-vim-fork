@@ -8,7 +8,7 @@ wk.add({
   { "<leader>ft", desc = "Find Text", mode = "n" },
   { "<leader>fb", desc = "Find Buffer", mode = "n" },
 
-  -- Git
+  -- Git integration
   { "<leader>g", group = "Git" },
   { "<leader>gb", desc = "Open Branches", mode = "n" },
   { "<leader>gc", desc = "Open Commits", mode = "n" },

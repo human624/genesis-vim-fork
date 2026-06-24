@@ -1,6 +1,3 @@
--- Убираем всплывающие предупреждения про deprecated API
-vim.deprecate = function(...) end
-
 -- Core
 require('core.plugins')
 require('core.mappings')

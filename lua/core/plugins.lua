@@ -1,70 +1,56 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
+    "git", "clone", "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
-  -- Treesitter
+  -- Treesitter for better syntax highlighting
   { 'nvim-treesitter/nvim-treesitter' },
 
-  -- LSP
+  -- LSP and Autocompletion
   { 'neovim/nvim-lspconfig' },
-
-  -- Autocomplete
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/cmp-buffer' },
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-cmdline' },
   { 'hrsh7th/nvim-cmp' },
   { 'williamboman/mason.nvim' },
+  { 'hrsh7th/cmp-vsnip' },
+  { 'hrsh7th/vim-vsnip' },
 
-  -- Telescope
+  -- Fuzzy finder
   {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
-  -- Dashboard
+  -- UI & Dashboard
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
-    config = function()
-      require('dashboard').setup {}
-    end,
+    config = function() require('dashboard').setup {} end,
     dependencies = { {'nvim-tree/nvim-web-devicons'} }
   },
 
-  -- Utilities
+  -- Utilities & Aesthetics
   { 'Eandrju/cellular-automaton.nvim' },
-  { 'norcalli/nvim-colorizer.lua' },
-
-  -- Status line
+  { 'catgoose/nvim-colorizer.lua' },
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }
   },
 
-  -- Todo comments
-  {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {}
-  },
-
   -- Colorschemes
-  {'ellisonleao/gruvbox.nvim', priority = 1000 , config = true, opts = ...},
+  {'ellisonleao/gruvbox.nvim', priority = 1000 , config = true },
   {'catppuccin/nvim', name = "catppuccin", priority = 1000 },
+  {'rose-pine/neovim', name = "rose-pine", priority = 1000 },
 
-  -- Escape jk/jj mapping
+  -- Typing helpers
   {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
@@ -72,72 +58,32 @@ require("lazy").setup({
       require("better_escape").setup {
         timeout = 200,
         default_mappings = false,
-        mappings = {
-          i = {
-            j = {
-              k = "<Esc>",
-              j = "<Esc>",
-            },
-          },
-        },
+        mappings = { i = { j = { k = "<Esc>", j = "<Esc>" } } },
       }
     end,
   },
+  { 'numToStr/Comment.nvim', opts = {}, lazy = false },
 
-  -- Comment
-  {
-    'numToStr/Comment.nvim',
-    opts = {},
-    lazy = false,
-  },
-
-  -- Bufferline
+  -- Buffer & File management
   {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
-
-  -- File tree
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
     lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("nvim-tree").setup {}
-    end,
+    config = function() require("nvim-tree").setup {} end,
   },
 
-  -- ALE
-  {
-    'dense-analysis/ale',
-    config = function()
-      local g = vim.g
-      g.ale_linters = {
-        python = {'mypy'},
-        lua = {'lua_language_server'}
-      }
-    end
-  },
-
-  -- Illuminate
+  -- Editor tools
   { 'RRethy/vim-illuminate' },
-
-  -- Luarocks
-  {
-    "vhyrro/luarocks.nvim",
-    priority = 1001,
-    opts = { rocks = { "magick" } },
-  },
-
-  -- Trouble
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {}
   },
-
-  -- ToggleTerm
   {'akinsho/toggleterm.nvim', version = "*", config = true},
 
-  -- WhichKey
+  -- WhichKey for keymap hints
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -148,9 +94,15 @@ require("lazy").setup({
     opts = {}
   },
 
-  -- Mini plugins
+  -- Mini.nvim suite
   { 'echasnovski/mini.nvim', version = false },
   { 'echasnovski/mini.move', version = false },
   { 'echasnovski/mini.pairs', version = false },
 
+  -- Todo comments
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {}
+  },
 })

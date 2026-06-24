@@ -1,81 +1,59 @@
--- Setup language servers.
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup {
-	settings = {
-	    pyright = {
-	      -- Using Ruff's import organizer
-	      disableOrganizeImports = true,
-	    },
-	    python = {
-	      analysis = {
-	        -- Ignore all files for analysis to exclusively use Ruff for linting
-	        ignore = { '*' },
-	        },
-		},
-	},
-    offset_encoding = "utf-8",
-}
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.ts_ls.setup({})
-lspconfig.rust_analyzer.setup {
-  -- Server-specific settings. See `:help lspconfig-setup`
-  settings = {
-    ['rust-analyzer'] = {},
-  },
-}
-
--- Setup Ruff Linter
-lspconfig.ruff.setup {
-  init_options = {
-    settings = {
-      -- Any extra CLI arguments for `ruff` go here.
-      args = {
-		"--select=E,F,UP,N,I,ASYNC,S,PTH",
-		"--line-length=79",
-		"--respect-gitignore",  -- Исключать из сканирования файлы в .gitignore
-      	"--target-version=py311"
-      },
+-- Diagnostic icons configuration
+local signs = { Error = " ", Warn = " ", Hint = "󰌶 ", Info = "󰋽 " }
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = signs.Error,
+      [vim.diagnostic.severity.WARN]  = signs.Warn,
+      [vim.diagnostic.severity.HINT]  = signs.Hint,
+      [vim.diagnostic.severity.INFO]  = signs.Info,
     }
   },
-  offset_encoding = "utf-8",
-}
+  virtual_text = { prefix = '●' },
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = { border = "rounded" },
+})
 
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
+-- Server Configurations
+vim.lsp.config('lua_ls', {
+  capabilities = capabilities,
+  cmd = { "lua-language-server", "--force_accept_workspace" },
+  root_dir = function(fname)
+    local root = vim.fs.root(fname, { '.luarc.json', '.luarc.jsonc', 'init.lua' })
+    return root or vim.fs.dirname(fname)
+  end,
+  settings = { Lua = { diagnostics = { globals = { 'vim' } }, telemetry = { enable = false } } },
+})
+
+vim.lsp.config('pyright', {
+  capabilities = capabilities,
+  settings = { pyright = { disableOrganizeImports = true }, python = { analysis = {} } },
+  offset_encoding = "utf-8",
+})
+
+vim.lsp.config('ruff', {
+  capabilities = capabilities,
+  init_options = { settings = { args = { "--select=E,F,UP,N,I,ASYNC,S,PTH", "--line-length=79" } } },
+  offset_encoding = "utf-8",
+})
+
+vim.lsp.enable({ 'lua_ls', 'pyright', 'ruff', 'ts_ls', 'rust_analyzer' })
+
+-- Global diagnostic mappings
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
--- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
+-- LSP Attach functionality
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    
-    -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    -- vim.keymap.set('n', '<space>wl', function()
-    --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- end, opts)
-    
-    -- TODO: Используется повторно, необходимо вырезать в след.версии
-    -- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>r', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, opts)
   end,
 })

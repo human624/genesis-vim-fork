@@ -18,7 +18,8 @@ return {
         "go",
         "rust",
       },
-
+      
+      parser_install_dir = vim.fs.normalize("~/.local/share/nvim/lazy/nvim-treesitter"),
       sync_install = false,
       auto_install = true,
 

@@ -1,37 +1,28 @@
 vim.g.mapleader = " "
+local opts = { silent = true }
 
--- Quit
-vim.keymap.set('n', '<C-q>', '<cmd>:q<CR>')
+-- === Quick Actions ===
+vim.keymap.set('n', '<C-q>', '<cmd>q<CR>', opts)
+vim.keymap.set({ 'i', 'n' }, '<C-s>', '<cmd>w<CR>', opts)
+vim.keymap.set('n', '<C-a>', '<cmd>%y+<CR>', opts)
 
--- Save
-vim.keymap.set('i', '<C-s>', '<cmd>:w<CR>')
-vim.keymap.set('n', '<C-s>', '<cmd>:w<CR>')
+-- === NvimTree Mappings ===
+vim.keymap.set('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>', opts)
+vim.keymap.set('n', '<leader>tf', '<cmd>NvimTreeFocus<CR>', opts)
 
--- Copy all text
-vim.keymap.set('n', '<C-a>', '<cmd>%y+<CR>')
+-- === BufferLine Mappings ===
+vim.keymap.set('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>', opts)
+vim.keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>', opts)
+vim.keymap.set('n', '<C-l>', '<cmd>BufferLineCloseOthers<CR>', opts)
 
--- NvimTree
-vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>')
-vim.keymap.set('n', '<leader>tf', ':NvimTreeFocus<CR>')
+-- === Utility Mappings ===
+vim.keymap.set('n', '<leader>nl', '<cmd>TodoTelescope<CR>', opts)
+vim.keymap.set('n', '<leader>ts', '<cmd>ToggleTerm direction=float<CR>', opts)
 
--- BufferLine
-vim.keymap.set('n','<Tab>', ':BufferLineCycleNext<CR>')
-vim.keymap.set('n','<S-Tab>', ':BufferLineCyclePrev<CR>')
-vim.keymap.set('n', '<C-l>', ':BufferLineCloseOthers<CR>')
-
--- TodoList
-vim.keymap.set('n', '<leader>nl', ':TodoTelescope<CR>')
-
--- ToggleTerm
-vim.keymap.set('n', '<leader>s', ':ToggleTerm direction=float<CR>')
-
--- Нормальный режим (Normal Mode Overrides)
-local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('n', 'd', '"_d', opts)        
-vim.api.nvim_set_keymap('n', 'dw', '"_dw', opts)      
-vim.api.nvim_set_keymap('n', 'db', '"_db', opts)      
-vim.api.nvim_set_keymap('n', 'dd', '"_dd', opts)      
-
--- Визуальный режим (Visual Mode Overrides)
-vim.api.nvim_set_keymap('v', 'd', '"_d', opts)        
-vim.api.nvim_set_keymap('v', 'x', '"_x', opts)  
+-- === Delete Behavior (Black hole register) ===
+vim.keymap.set('n', 'd', '"_d', opts)
+vim.keymap.set('n', 'dw', '"_dw', opts)
+vim.keymap.set('n', 'db', '"_db', opts)
+vim.keymap.set('n', 'dd', '"_dd', opts)
+vim.keymap.set('v', 'd', '"_d', opts)
+vim.keymap.set('v', 'x', '"_x', opts)
